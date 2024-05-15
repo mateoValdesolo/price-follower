@@ -38,18 +38,10 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-      - name: Run tests with JUnit
-        run: mvn test
-
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
+      - name: Build with Maven, run tests with JUnit and Sonar analysis
+        run: mvn -B clean verify sonar:sonar -Dsonar.projectKey=my_project_key -Dsonar.organization=my_organization_key -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
         env:
           SONAR_TOKEN: ${{ secrets.PRICE_FOLLOWER_BACKEND }}
-        with:
-          args: -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
 
       - name: Publish to GitHub Packages Apache Maven
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
