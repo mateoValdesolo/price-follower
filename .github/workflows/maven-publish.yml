@@ -13,6 +13,17 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:10.5
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_ROOT_USER: root
+          MARIADB_DATABASE: 'price-follower'
+          MARIADB_ROOT_HOST: "%"
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=10
     permissions:
       contents: read
       packages: write
@@ -34,6 +45,8 @@ jobs:
         uses: sonarsource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+          with:
+            args: -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
