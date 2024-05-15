@@ -39,7 +39,7 @@ jobs:
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Build with Maven, run tests with JUnit and Sonar analysis
-        run: mvn -B clean verify sonar:sonar -Dsonar.projectKey=my_project_key -Dsonar.organization=my_organization_key -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+        run: mvn -B clean verify sonar:sonar -Dsonar.projectKey=mateoValdesolo_price-follower2 -Dsonar.organization=mateovaldesolo -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$PRICE_FOLLOWER_BACKEND
         env:
           SONAR_TOKEN: ${{ secrets.PRICE_FOLLOWER_BACKEND }}
 
