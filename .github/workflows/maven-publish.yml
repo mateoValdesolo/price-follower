@@ -22,7 +22,7 @@ jobs:
           MARIADB_DATABASE: 'price-follower'
           MARIADB_ROOT_HOST: "%"
         ports:
-          - 3306:3306
+          - 3308:3308
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=10
     permissions:
       contents: read
