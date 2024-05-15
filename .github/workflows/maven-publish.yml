@@ -44,7 +44,7 @@ jobs:
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
-          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.PRICE_FOLLOWER_BACKEND }}
         with:
           args: -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
